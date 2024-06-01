@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MPSC Typing</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="/images/Main@3x.png">
+
+  <style>
+    /* Custom CSS for modern look */
+    body {
+      background-color: #212529;
+      color: #fff;
+    }
+
+    .card {
+      background-color: #212529;
+      color: #fff;
+    }
+
+    .form-label {
+      color: #fff;
+    }
+
+    /* Style for disabled inputs */
+    .form-control:disabled {
+      background-color: #dbddde; /* Light gray shade */
+      cursor: not-allowed; /* Change cursor to indicate non-interactive */
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="brand text-left">
+            <img src="images/Main@3x.png" alt="logo.png" width="160" height="105">
+          </div>
+          <div class="card-body">
+            <form class="row g-3 px-3" id="userForm" method="post" action="/users/<%= user._id %>" enctype="multipart/form-data">
+              <div class="container align-items-center bg-dark">
+                <div class="row justify-content-center">
+                  <div class="col-md-4 col-lg-3 border-right">
+                    <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img
+                        class="rounded-circle mt-5" width="150px" src="images/profile.jpg"><span
+                        class="font-weight-bold"><%= user.firstname +' '+ user.lastname %></span><span
+                        class="text-white-50"><%= user.email%></span><span> </span></div>
+                  </div>
+                  <div class="col-md-8 col-lg-9">
+                    <div class="p-5 py-7">
+                      <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="form-label text-warning">Profile Settings</h4>
+                        <img src="images/edit_icon.png" alt="logo.png" width="16" height="16" class="edit-icon" onclick="editFunction()">
+                      </div>
+                      <div class="row mt-2">
+                        <div class="col-md-6"><label class="labels">First Name</label><input type="text"
+                            class="form-control first-name" name="firstname" placeholder="First Name" value="<%= user.firstname%>" disabled></div>
+                        <div class="col-md-6"><label class="labels">Last Name</label><input type="text"
+                            class="form-control last-name" name="lastname" value="<%=user.lastname %>" placeholder="Last Name" disabled></div>
+                      </div>
+                      <div class="row mt-3">
+                        <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text"
+                            class="form-control mobile-number" name="contact_number" placeholder="+91" value="<%= user.contact_number%>" disabled></div>
+                        <div class="col-md-12"><label class="labels">City</label><input type="text" class="form-control city"
+                            name="city" placeholder="City" value="<%= user.city%>" disabled></div>
+
+                        <div class="col-md-12"><label class="labels">Email ID</label><input type="text"
+                            class="form-control email" name="email" placeholder="Enter Email Id" value="<%= user.email%>" disabled></div>
+                      </div>
+                      <div class="mt-5 text-center save-profile" style="display: none;"><button class="btn btn-warning btn-block" type="submit">Save
+                          Profile</button></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function editFunction() {
+      // Enable editing of inputs
+      var inputs = document.querySelectorAll('.form-control');
+      inputs.forEach(function(input) {
+        input.removeAttribute('disabled');
+      });
+
+      // Show save profile button
+      var saveBtn = document.querySelector('.save-profile');
+      saveBtn.style.display = 'block';
+
+      // Hide the edit button
+      var editBtn = document.querySelector('.edit-icon');
+      editBtn.style.display = 'none';
+    }
+  </script>
+</body>
+</html>

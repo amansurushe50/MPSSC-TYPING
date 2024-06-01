@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  proxy:
+    container_name: proxy
+    image: nginx:alpine
+    ports:
+      - "8000:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    restart: "unless-stopped"
+
+  server:
+    container_name: server
+    build:
+      context: ./
+      dockerfile: Dockerfile.dev
+      tags:
+      - amandevars/mpssctyping-server:latest 
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    restart: "unless-stopped"
+    networks:
+      - backend
+    links:
+      - proxy
+
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  data:
+    driver: local

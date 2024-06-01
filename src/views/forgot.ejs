@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Kodinger">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MPSC Typing</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/my-login.css"> <!-- Assuming you have your custom CSS -->
+    <link rel="icon" type="image/x-icon" href="/images/Main@3x.png">
+
+	<style>
+        .my-login-page {
+            background-color: #212529; /* Setting background color */
+            padding: 20px; /* Adding padding */
+        }
+	</style>
+</head>
+<body class="my-login-page text-white">
+    <section class="h-100">
+        <div class="container h-100">
+            <div class="row justify-content-md-center align-items-center h-100">
+                <div class="card-wrapper">
+                    
+                    <div class="card bg-dark">
+						<div class="brand">
+							<img src="images/Main@3x.png" alt="logo.png" width="160" height="110">
+						</div>
+                        <div class="card-body">
+                            <form method="POST" class="my-login-validation" novalidate="">
+                                <div class="form-group">
+                                    <input id="email" type="email" placeholder="Email" class="form-control" name="email" value="" required autofocus>
+                                    <div class="invalid-feedback">
+                                        Email is invalid
+                                    </div>
+                                    <div class="form-text text-white">
+                                        By clicking <span class="text-warning">"Reset Password"</span> we will send a password reset link
+                                    </div>
+                                </div><br>
+
+                                <div class="form-group mb-0">
+                                    <button type="submit" class="btn btn-warning btn-block">
+                                        Reset Password
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="footer text-white">
+                        Copyright &copy; 2017 &mdash; Badmash Company 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

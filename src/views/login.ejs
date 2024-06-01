@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Kodinger">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>MPSC Typing</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/images/Main@3x.png">
+    <style>
+        .my-login-page {
+            background-color: #212529; /* Setting background color */
+            padding: 20px; /* Adding padding */
+        }
+
+        .card {
+            background-color: #212529; /* Setting card background color */
+        }
+
+        .footer {
+            background-color: #212529; /* Setting footer background color */
+            padding: 10px; /* Adding padding */
+            text-align: center; /* Center aligning text */
+            margin-top: 20px; /* Adding margin */
+        }
+    </style>
+</head>
+
+<body class="my-login-page">
+    <section class="h-100 d-flex justify-content-center align-items-center"> <!-- Making section flex -->
+        <div class="card text-white"> <!-- Adding text-white class -->
+            <div class="card-body">
+                <div class="brand text-center mb-4">
+                    <img src="images/Main@3x.png" alt="logo.png" width="160" height="110">
+                </div> <!-- Adding text-warning class -->
+                <form method="POST" class="my-login-validation" novalidate="" Action="/login" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input id="email" type="email" placeholder="Email" class="form-control" name="email" value=""
+                            required autofocus>
+                        <div class="invalid-feedback">
+                            Email is invalid
+                        </div>
+                    </div><br>
+
+                    <div class="form-group">
+                        <input id="password" type="password" class="form-control" name="password" placeholder="Password"
+                            data-eye>
+                        <div class="invalid-feedback">
+                            Password is required
+                        </div>
+                    </div>
+
+                    <label for="password" class="float-sm-end">
+                        <a href="forgot" class="text-warning"> <!-- Adjusting text alignment -->
+                            Forgot Password?
+                        </a>
+                    </label><br>
+
+                    <div class="form-group m-0 ">
+                        <button type="submit" class="btn btn-warning btn-block">
+                            Login
+                        </button>
+                    </div>
+                </form>
+                <hr>
+                <div class="text-center">
+                    <a href="#" class="btn btn-danger btn-block mb-3">
+                        <i class="fab fa-google me-2"></i> Login with Google
+                    </a>
+                </div>
+                <div class="mt-4 text-center">
+                    Don't have an account? <a href="register" class="text-warning">Create One</a>
+                </div>
+            </div>
+            <div class="footer">
+                Copyright &copy; 2017 &mdash; Badmash Company
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>
