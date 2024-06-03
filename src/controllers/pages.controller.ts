@@ -54,6 +54,13 @@ export class PagesController {
       next(error);
     }
   };
+  public getmockinstructionpage = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      res.render('../src/views/mockinstruction.ejs');
+    } catch (error) {
+      next(error);
+    }
+  };
   public getRegister = async (req: Request, res: Response, next: NextFunction) => {
     try {
       res.render('../src/views/register.ejs', { message: false });
