@@ -21,11 +21,15 @@ export class AuthController {
   public logIn = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userData: User = req.body;
-      const { cookie, findUser, tokenData } = await this.auth.login(userData);
-      res.setHeader('Set-Cookie', [cookie]);
-      req.session.user = findUser;
-      req.session.tokenData = tokenData;
-      res.redirect('/english');
+      const data: any = await this.auth.login(userData);
+      if (data.cookie && data.findUser && data.tokenData) {
+        res.setHeader('Set-Cookie', [data.cookie]);
+        req.session.user = data.findUser;
+        req.session.tokenData = data.tokenData;
+        res.redirect('/english');
+      } else {
+        res.render('../src/views/login', { message: data.message });
+      }
     } catch (error) {
       next(error);
     }

@@ -14,21 +14,41 @@ export class UserService {
   public async findUserById(userId: string): Promise<User> {
     const findUser: User = await UserModel.findOne({ _id: userId });
     if (!findUser) throw new HttpException(409, "User doesn't exist");
-
     return findUser;
   }
 
-  public async createUser(userData: User): Promise<User> {
+  public async createUser(userData: User): Promise<any> {
+    let data: any;
     if (userData.password != userData.confirm_password) {
-      throw new HttpException(409, `Passwords does not match`);
+      data = {
+        message: {
+          message: `Passwords does not match`,
+          badge: `danger`,
+        },
+      };
+      return data;
     }
     const findUser: User = await UserModel.findOne({ email: userData.email });
-    if (findUser) throw new HttpException(409, `This email ${userData.email} already exists`);
+    if (findUser) {
+      data = {
+        message: {
+          message: `This email ${userData.email} already exists`,
+          badge: `danger`,
+        },
+      };
+      return data;
+    }
 
     const hashedPassword = await hash(userData.password, 10);
     const createUserData: User = await UserModel.create({ ...userData, password: hashedPassword });
-
-    return createUserData;
+    data = {
+      createUserData: createUserData,
+      message: {
+        message: `Hola Amigo! ${userData.firstname} ${userData.lastname}`,
+        badge: `warning`,
+      },
+    };
+    return data;
   }
 
   public async updateUser(userId: string, userData: User): Promise<User> {

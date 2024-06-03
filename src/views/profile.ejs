@@ -74,8 +74,11 @@
                         <div class="col-md-12"><label class="labels">Email ID</label><input type="text"
                             class="form-control email" name="email" placeholder="Enter Email Id" value="<%= user.email%>" disabled></div>
                       </div>
-                      <div class="mt-5 text-center save-profile" style="display: none;"><button class="btn btn-warning btn-block" type="submit">Save
-                          Profile</button></div>
+                      <div class="mt-5 text-center save-profile" style="display: none;">
+                        <button class="btn btn-warning btn-block" type="submit">Save
+                          Profile</button>
+                          <button class="btn btn-secondary btn-block" type="button" onclick="cancelEdit()">Cancel</button>
+                        </div>
                     </div>
                   </div>
                 </div>

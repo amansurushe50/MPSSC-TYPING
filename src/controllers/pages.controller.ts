@@ -42,7 +42,7 @@ export class PagesController {
   };
   public getLogin = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      res.render('../src/views/login.ejs');
+      res.render('../src/views/login.ejs', { message: false });
     } catch (error) {
       next(error);
     }
@@ -56,7 +56,7 @@ export class PagesController {
   };
   public getRegister = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      res.render('../src/views/register.ejs');
+      res.render('../src/views/register.ejs', { message: false });
     } catch (error) {
       next(error);
     }

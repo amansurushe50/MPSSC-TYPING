@@ -32,9 +32,12 @@ export class UserController {
     try {
       const userData: User = req.body;
       console.log('userData', userData);
-      const createUserData: User = await this.user.createUser(userData);
-
-      res.status(201).json({ data: createUserData, message: 'created' });
+      const data = await this.user.createUser(userData);
+      if (data.createUserData) {
+        res.render('../src/views/login', { data: data.createUserData, message: data.message });
+      } else {
+        res.render('../src/views/register', { message: data.message });
+      }
     } catch (error) {
       next(error);
     }

@@ -30,17 +30,38 @@ export class AuthService {
     return createUserData;
   }
 
-  public async login(userData: User): Promise<{ cookie: string; findUser: User; tokenData: any }> {
+  public async login(userData: User): Promise<{ data: any }> {
+    let data;
     const findUser: User = await UserModel.findOne({ email: userData.email });
-    if (!findUser) throw new HttpException(409, `This email ${userData.email} was not found`);
+    if (!findUser) {
+      data = {
+        message: {
+          message: `This email ${userData.email} was not found`,
+          badge: `danger`,
+        },
+      };
+      return data;
+    }
 
     const isPasswordMatching: boolean = await compare(userData.password, findUser.password);
-    if (!isPasswordMatching) throw new HttpException(409, 'Password is not matching');
+    if (!isPasswordMatching) {
+      data = {
+        message: {
+          message: `Password is not matching`,
+          badge: `danger`,
+        },
+      };
+      return data;
+    }
 
     const tokenData = createToken(findUser);
     const cookie = createCookie(tokenData);
-
-    return { cookie, findUser, tokenData };
+    data = {
+      cookie: cookie,
+      findUser: findUser,
+      tokenData: tokenData,
+    };
+    return data;
   }
 
   public async logout(userData: User): Promise<User> {
