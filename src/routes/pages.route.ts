@@ -19,6 +19,8 @@ export class PageRoute implements Routes {
     this.router.get(`${this.path}login`, this.pages.getLogin);
     this.router.get(`${this.path}forgot`, this.pages.getForgot);
     this.router.get(`${this.path}mockinstruction`, this.pages.getmockinstructionpage);
+    this.router.get(`${this.path}mockfirst`, this.pages.getmockfirst);
+    this.router.get(`${this.path}breakpage`, this.pages.getbreakpage);
     this.router.get(`${this.path}register`, this.pages.getRegister);
     this.router.get(`${this.path}reset`, this.pages.getreset);
     this.router.get(`${this.path}`, this.pages.getlanding);

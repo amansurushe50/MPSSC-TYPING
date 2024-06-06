@@ -16,48 +16,68 @@
     <link rel="icon" type="image/x-icon" href="/images/Main@3x.png">
 
     <style>
+
         .table-container {
-            padding: 30px; /* Adjust the padding value as needed */
+            background-color: #5f6368;
+            /* Adjust the padding value as needed */
         }
+
         .table {
             width: 100%;
             border-collapse: collapse;
         }
-        .table th, .table td {
+
+        .table th,
+        .table td {
             padding: 10px;
             border: 1px solid #ddd;
         }
+
         .table-dark {
-            background-color: #343a40;
+            background-color: #343a4000;
             color: #fff;
-        }
-        .table-dark th, .table-dark td {
-            border-color: #ffc107; /* Warning border color */
-        }
-         /* Additional styling for instructions */
-         .instructions-container {
-            background-color: #222;
-            color: #fff;
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 5px;
         }
 
-        .instructions-title {
-            font-weight: bold;
-            margin-bottom: 10px;
+        .table-dark th,
+        .table-dark td {
+            border-color: #ffc10780;
+            /* Warning border color */
+        }
+
+        /* Additional styling for instructions */
+        .instruction-list {
+            margin-top: 20px;
         }
 
         .instruction {
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .instruction h2 {
+            color: #ffc107;
+            /* Dark Blue */
+        }
+
+        .instruction p {
+            color: #ffffff;
+            /* Blue Grey */
+        }
+
+        .instruction ul {
+            color: #ffffff;
+            /* Blue Grey */
+        }
+
+        .card {
+            padding-bottom: 10%;
         }
     </style>
-      </style>
+    </style>
 </head>
 
 
-<body class="bg-dark text-white">
-    
+<body class="text-bg-dark">
+
     <nav class="navbar navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="#">
@@ -66,7 +86,7 @@
             <div class="dropdown" data-bs-theme="dark">
                 <button class="btn btn-secondary dropdown-toggle bg-dark" type="button" id="dropdownMenuButtonDark"
                     data-bs-toggle="dropdown" aria-expanded="false">
-                   Institute Name
+                    Institute Name
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonDark">
                     <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
@@ -74,55 +94,140 @@
             </div>
         </div>
     </nav>
-    <div class="table-container">
-        <table class="table table-bordered table-dark">
-            <thead>
-              <tr>
-                <th scope="col">Exam</th>
-                <th scope="col">Length</th>
-                <th scope="col">Mock Test Structure</th>
-                <th scope="col">Exam Duration</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">Marathi Typing</th>
-                <td>300 Words</td>
-                <td>Keyboard Test (5 mins) + Break (5 mins) + Mock (10 mins) + Break (2 mins) + Marathi Typing (10 mins)/(15 mins For Divyang Candidates)</td>
-                <td>32 mins (For Divyang Candidate 37 minutes)</td>
-              </tr>
-              <tr>
-                <th scope="row">Marathi Typing</th>
-                <td>400 Words</td>
-                <td>Keyboard Test (5 mins) + Break (5 mins) + Mock (10 mins) + Break (2 mins) + Marathi Typing (10 mins)/(15 mins For Divyang Candidates)</td>
-                <td>32 mins (For Divyang Candidate 37 minutes)</td>
-              </tr>
-            </tbody>
-        </table>
+    <div class="container">
+        <div class="instruction">
+            <h2>Essential Guidelines for Candidates in Mock Test</h2>
+            <p>Follow these essential guidelines to ensure a smooth and successful mock test experience:</p>
+            <!-- Add any additional guidelines here -->
+            <div class="table-container">
+                <table class="table table-bordered table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">Exam</th>
+                            <th scope="col">Length</th>
+                            <th scope="col">Mock Test Structure</th>
+                            <th scope="col">Exam Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Marathi Typing</th>
+                            <td>1800 Keystroke</td>
+                            <td>Keyboard Test (5 mins) + Break (5 mins) + Mock (10 mins) + Break (2 mins) + Marathi
+                                Typing (10
+                                mins)/(15 mins For Divyang Candidates)</td>
+                            <td>32 mins (For Divyang Candidate 37 minutes)</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">English Typing</th>
+                            <td>2200 Keystroke</td>
+                            <td>Keyboard Test (5 mins) + Break (5 mins) + Mock (10 mins) + Break (2 mins) + English
+                                Typing (10
+                                mins)/(15 mins For Divyang Candidates)</td>
+                            <td>32 mins (For Divyang Candidate 37 minutes)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    
+
+    <div class="container mt-5 mb-3 ">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card p-3 text-bg-dark">
+                    <div class="container mb-3 mt-2 border border-warning-subtle">
+                        <div class="d-flex mt-2 justify-content-between">
+                            <div class="d-flex flex-row align-items-center">
+                            </div>
+                            <div class="badge text-bg-warning"> <span>Mock Test</span> </div>
+                        </div>
+                        <div class="mt-3">
+                            <h2 class="heading">Marathi</h2>
+                            <div class="mt-4  mb-3">
+                                <button type="button" class="btn btn-warning">Take Test</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-3 text-bg-dark">
+                    <div class="container mb-3 mt-2 border border-warning-subtle">
+                        <div class="d-flex mt-2 justify-content-between">
+                            <div class="d-flex flex-row align-items-center">
+                            </div>
+                            <div class="badge text-bg-warning"> <span>Mock Test</span> </div>
+                        </div>
+                        <div class="mt-3">
+                            <h2 class="heading">English</h2>
+                            <div class="mt-4  mb-3">
+                                <button type="button" class="btn btn-warning">Take Test</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
     <!-- Instructions Section -->
-    <div class="instructions-container">
-        <h2 class="instructions-title">Instructions for the Exam:</h2>
-        <div class="instruction">
-            <p>1. Please read the following instructions carefully to avoid any time loss/disqualification.</p>
-            <p>1.1 After reading Instructions, accept the declaration and click on "I'm ready to begin"</p>
-            <p>1.2 Keyboard layout for Marathi Typing will be Remigton Marathi. And for English Typing English (US). Which is QWERTY keyboard layout.</p>
-            <p>1.3 Note that in Marathi typing candidates can use only 'K' key to complete the letter and not Shift + A.</p>
-            <p>1.4 The typed text can be edited with the help of Backspace key to correct any incorrect word. ( Candidates can't use navigation key/arrow key)</p>
-            <p>1.5 Candidates should not use any unnecessary special keys while typing.</p>
-            <p>1.6 Candidates themselves should ensure that Caps Lock and Scroll Lock keys are not ON.</p>
+    <div class="container">
+        <div class="instruction-list">
+            <div class="instruction">
+                <h2>Read Instructions</h2>
+                <p>Please carefully read the following instructions to avoid any time loss or disqualification.</p>
+                <p>After reading the instructions, accept the declaration and click on "I'm ready to begin".</p>
+            </div>
+
+            <div class="instruction">
+                <h2>Keyboard Layout</h2>
+                <p>For Marathi Typing, use the Remington Marathi layout. For English Typing, use the English (US)
+                    layout, which is the QWERTY keyboard layout.</p>
+                <p>Note: In Marathi typing, use only the 'K' key to complete a letter, not Shift + A.</p>
+            </div>
+
+            <div class="instruction">
+                <h2>Editing Text</h2>
+                <p>You can edit typed text using the Backspace key to correct any incorrect words. Avoid using
+                    navigation or arrow keys.</p>
+                <p>Avoid using unnecessary special keys while typing, and ensure Caps Lock and Scroll Lock keys are off.
+                </p>
+            </div>
+
+            <div class="instruction">
+                <h2>Mistakes After Submission</h2>
+                <p>After submitting the test, the following errors will be treated as mistakes:</p>
+                <ul>
+                    <li>Omission of a word</li>
+                    <li>Substitution of a wrong word</li>
+                    <li>Addition of a word not found in the passage</li>
+                    <li>Spelling errors (repetition, addition, transposition, omission, substitution)</li>
+                    <li>Wrong capitalization (for English typing only)</li>
+                </ul>
+                <p>One mistake equals one error.</p>
+            </div>
         </div>
         <div class="instruction">
-            <p>2. After the submission of the test following errors are treated as Mistakes:-</p>
-            <p>2.1 For every omission of word.</p>
-            <p>2.2 For every substitution of a wrong word.</p>
-            <p>2.3 For every addition of a word not found in the passage.</p>
-            <p>2.4 For every spelling error committed by way of repetition or addition or transposition or omission or substitution of a letter/letters, e.g.: the word ‘spelling’ typed as ‘Speleeng’ etc.</p>
-            <p>2.5 Wrong Capitalisation: Wrong use of capital letter for small letter and vice-versa. (For english Typing only)</p>
-            <p>2.6 One Mistake = One Error</p>
+            <h2>त्रुटी (Mistakes)</h2>
+            <ul>
+                <li>प्रत्येक वगळलेल्या शब्दासाठी स्थानांतरण करा.</li>
+                <li>चूकीच्या शब्दांच्या प्रत्येकासाठी सुस्थानांतरण करा.</li>
+                <li>उताऱ्यात न आढळलेल्या शब्दांचे समावेश करा.</li>
+                <li>पुन्हा बघून सुस्थानांतरित केलेल्या प्रत्येक लेखनाच्या त्रुटीसाठी, अक्षर/अक्षरांच्या स्थानांतरणासाठी
+                    किंवा बदल किंवा वगळणे किंवा बदलणे, उदाहरणार्थ, 'जाहिरात' हा शब्द 'जाहिरातत' इत्यादी.</li>
+                <li>चूकीचे कॅपिटलायझेशनः कॅपिटल अक्षराच्या लहान अक्षरासाठी सुस्थानांतरण आणि त्याचा उपयोग. (फक्त इंग्रजी
+                    लेखनासाठी)</li>
+                <li>एक चूक = एक त्रुटी</li>
+            </ul>
         </div>
     </div>
+    </div>
+
+
 </body>
 
 </html>

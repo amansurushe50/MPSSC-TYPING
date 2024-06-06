@@ -61,6 +61,20 @@ export class PagesController {
       next(error);
     }
   };
+  public getmockfirst = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      res.render('../src/views/mocktestfirstpage.ejs');
+    } catch (error) {
+      next(error);
+    }
+  };
+  public getbreakpage = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      res.render('../src/views/breakpage.ejs');
+    } catch (error) {
+      next(error);
+    }
+  };
   public getRegister = async (req: Request, res: Response, next: NextFunction) => {
     try {
       res.render('../src/views/register.ejs', { message: false });
