@@ -54,15 +54,21 @@
       let timer = parseInt('<%= timer %>');
       var flag = 0;
       var seconds;
-
-      // on Input
-      inputItem.addEventListener('input', function (event) {
+      window.onload = function() {
         if (flag === 0) {
           flag = 1;
           timeStart();
           startTyping();
         }
-      });
+    };
+      // on Input
+      // inputItem.addEventListener('input', function (event) {
+      //   if (flag === 0) {
+      //     flag = 1;
+      //     timeStart();
+      //     startTyping();
+      //   }
+      // });
 
       // time selection
       // timingDropdown.addEventListener('change', function () {
@@ -209,7 +215,7 @@
               <br />
 
               <textarea class="container-fluid border border-white rounded bg-dark text-white"
-                style="height: 30vh; max-width: 100%" id="textInputs" rows="3" placeholder="Type here..."></textarea>
+                style="height: 30vh; max-width: 100%" id="textInputs" spellcheck="false" rows="3" placeholder="Type here..."></textarea>
 
               <!-- Button trigger modal -->
               <!-- <button
@@ -266,7 +272,7 @@
           <h5 class="modal-title col-8 text-warning" id="exampleModalLongTitle">TEST RESULTS</h5>
           <a type="button" class="btn col-4 btn-dark" onclick="closePopup()" data-dismiss="modal" data-bs-theme="dark"
             aria-label="Close">
-            <img width="20" height="20" src="images/letter-x_9339125.png" alt="delete-sign" />
+            <img width="20" height="20" src="/images/letter-x_9339125.png" alt="delete-sign" />
           </a>
         </div>
         <div class="modal-body bg-dark">

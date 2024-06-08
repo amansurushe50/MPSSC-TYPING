@@ -54,15 +54,21 @@
       let timer = parseInt('<%= timer %>');
       var flag = 0;
       var seconds;
-
-      // on Input
-      inputItem.addEventListener('input', function (event) {
+      window.onload = function() {
         if (flag === 0) {
           flag = 1;
           timeStart();
           startTyping();
         }
-      });
+    };
+      // on Input
+      // inputItem.addEventListener('input', function (event) {
+      //   if (flag === 0) {
+      //     flag = 1;
+      //     timeStart();
+      //     startTyping();
+      //   }
+      // });
 
       // time selection
       // timingDropdown.addEventListener('change', function () {
@@ -194,7 +200,7 @@
               <br />
 
               <textarea class="container-fluid border border-white rounded bg-dark text-white"
-                style="height: 30vh; max-width: 100%" id="textInputs" rows="3" placeholder="Type here..."></textarea>
+                style="height: 30vh; max-width: 100%" id="textInputs" spellcheck="false" rows="3" placeholder="Type here..."></textarea>
 
               <!-- Button trigger modal -->
               <button type="button" id="submit-test" onclick="calculateResults();" class="btn btn-warning"

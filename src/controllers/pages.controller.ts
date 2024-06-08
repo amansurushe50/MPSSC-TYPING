@@ -115,7 +115,7 @@ export class PagesController {
   };
   public englishfinaltest = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      res.render('../src/views/englishfinaltest.ejs', { timer: 10 });
+      res.render('../src/views/englishfinaltest.ejs', { timer: 1 });
     } catch (error) {
       next(error);
     }
