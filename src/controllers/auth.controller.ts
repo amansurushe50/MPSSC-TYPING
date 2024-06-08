@@ -39,9 +39,8 @@ export class AuthController {
     try {
       const userData: User = req.user;
       const logOutUserData: User = await this.auth.logout(userData);
-
       res.setHeader('Set-Cookie', ['Authorization=; Max-age=0']);
-      res.status(200).json({ data: logOutUserData, message: 'logout' });
+      res.redirect('/login');
     } catch (error) {
       next(error);
     }

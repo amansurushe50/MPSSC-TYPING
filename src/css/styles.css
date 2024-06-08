@@ -13225,3 +13225,18 @@ section#contact form#contactForm :-ms-input-placeholder {
   animation-delay: 6.5s;
 }
 /* Continue adding nth-of-type rules with increased delay for each repetition */
+
+.flag-animation {
+  display: inline-block;
+  animation: flag 1.0s ease-in-out infinite;
+  transform-origin: bottom left;
+}
+
+@keyframes flag {
+  0%, 100% {
+      transform: scale(0.7) rotate(0deg);
+  }
+  50% {
+      transform: scale(0.9) rotate(10deg);
+  }
+}

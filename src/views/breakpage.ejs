@@ -49,14 +49,44 @@
             0% { opacity: 0; }
             100% { opacity: 1; }
         }
+        .fade-in-out {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .fade-in-out.show {
+            opacity: 1;
+        }
     </style>
 </head>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const messages = [
+            "Fantastic! You've typed <%=keystroke%> characters. Keep those fingers flying!",
+            "Great job! You're doing amazing!",
+            "You're a typing superstar!",
+            "Stretch your fingers!",
+        ];
+        let currentIndex = 0;
+        const label = document.getElementById('animatedLabel');
 
+        function showNextMessage() {
+            label.classList.remove('show');
+            setTimeout(() => {
+                label.innerHTML = messages[currentIndex];
+                label.classList.add('show');
+                currentIndex = (currentIndex + 1) % messages.length;
+            }, 1000); // Time to wait before showing the next message
+        }
+
+        setInterval(showNextMessage, 4000); // Time to display each message
+        showNextMessage(); // Show the first message immediately
+    });
+</script>
 <body class="text-bg-dark">
     <nav class="navbar navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <img src="images/Main@3x.png" alt="logo.png" width="115" height="75">
+                <img src="/images/Main@3x.png" alt="logo.png" width="115" height="75">
             </a>
             <div class="dropdown" data-bs-theme="dark">
                 <button class="btn btn-secondary dropdown-toggle bg-dark" type="button" id="dropdownMenuButtonDark"
@@ -71,9 +101,14 @@
     </nav>
     <div class="d-flex justify-content-center mt-3 text-bg-dark">
         <button type="button" class="btn btn-dark btn-translucent">
-            Break 2 minutes
+            Break <%= time%> minutes
         </button>
-    </div>
+    </div><br>
+    <div class="d-flex justify-content-center mt-3 text-bg-dark">
+        <label class="form-check-label text-warning fade-in-out" id="animatedLabel">
+          
+        </label>
+    </div><br>
     <div class="d-flex justify-content-center mt-3 text-bg-dark">
         <p>Note: Do not close or navigate away from this window, as doing so will terminate the exam</p>
     </div>
@@ -105,6 +140,7 @@
 
                 if (--timer < 0) {
                     clearInterval(interval);
+                    window.location.href = '/mock/<%=url%>';
                 }
             }, 1000);
         }
@@ -119,8 +155,8 @@
         }
 
         window.onload = function () {
-            const fiveMinutes = 60 * 5;
-            startTimer(fiveMinutes);
+            const time =60 * '<%= time%>';
+            startTimer(time);
         };
     </script>
 </body>

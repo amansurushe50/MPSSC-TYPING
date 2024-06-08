@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MPSC Typing</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <link rel="icon" type="image/x-icon" href="/images/Main@3x.png" />
+
+  <style>
+    ::placeholder {
+      /* Set the color of the placeholder text */
+      color: #ffc107 !important;
+      /* Adjust the color as needed */
+    }
+
+    .card-transparent {
+      background-color: rgba(255, 255, 255, 0);
+      ;
+      /* Adjust the transparency by changing the alpha value */
+      border: 1px solid white;
+      /* Remove the card border if desired */
+    }
+
+    .card-transparent .card-title,
+    .card-body {
+      color: aliceblue;
+    }
+  </style>
+</head>
+
+<body class="bg-dark text-white">
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const inputItem = document.getElementById('textInputs');
+      const timeName = document.getElementById('timeName');
+      const time = document.getElementById('time');
+      const thirty = document.getElementById('thirty');
+      const sixty = document.getElementById('sixty');
+      const cwName = document.getElementById('cwName');
+      const cw = document.getElementById('cw');
+
+      var wordsSubmitted = 0;
+      var wordsCorrect = 0;
+      //time dropdown
+      let timer = parseInt('<%= timer %>');
+      var flag = 0;
+      var seconds;
+
+      // on Input
+      inputItem.addEventListener('input', function (event) {
+        if (flag === 0) {
+          flag = 1;
+          timeStart();
+          startTyping();
+        }
+      });
+
+      // time selection
+      // timingDropdown.addEventListener('change', function () {
+      timer = parseInt('<%= timer %>');
+      updateTimerDisplay(timer); // Update timer display when dropdown value changes
+      // });
+
+      // Function to update the timer display
+      // Function to update the timer display
+      function updateTimerDisplay(timerValue) {
+        let minutes = Math.floor(timerValue); // Extract minutes
+        let seconds = Math.round((timerValue - minutes) * 60); // Round seconds to nearest integer
+        let displayText = minutes + ' Min' + ' : ' + (seconds < 10 ? '0' : '') + seconds + ' sec';
+        time.innerText = displayText;
+      }
+
+      // start the timer countdown
+      function timeStart() {
+        let totalSeconds = timer * 60; // Convert minutes to seconds
+        seconds = setInterval(function () {
+          let minutes = Math.floor(totalSeconds / 60);
+          let secondsLeft = totalSeconds % 60;
+          updateTimerDisplay(minutes + secondsLeft / 60); // Update timer display
+          if (totalSeconds <= 0) {
+            timeOver();
+            clearInterval(seconds);
+            const result = calculatekeystroke();
+            const mocktesturl = 'englishmocktest';
+            const break1 = 5;
+            window.location.href = `/breakpage/${result}/${break1}/${mocktesturl}`;
+
+            // Use the fetch API to make a POST request to the server
+          }
+          totalSeconds--; // Decrement totalSeconds only once per interval
+        }, 1000);
+      }
+
+      // disable textarea and wait for restart
+      function timeOver() {
+        inputItem.disabled = true;
+      }
+
+      // Initial update of timer display
+      updateTimerDisplay(timer);
+    });
+  </script>
+  <script>
+    // Function to adjust font size
+    function adjustFontSize(change) {
+      var content = document.getElementById('content');
+      var currentSize = window.getComputedStyle(content, null).getPropertyValue('font-size');
+      var newSize = parseFloat(currentSize) + change + 'px';
+      content.style.fontSize = newSize;
+    }
+  </script>
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="/images/Main@3x.png" alt="logo.png" width="115" height="75" />
+      </a>
+      <div class="dropdown" data-bs-theme="dark">
+        <button class="btn btn-secondary dropdown-toggle bg-dark" type="button" id="dropdownMenuButtonDark"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          Institute Name
+        </button>
+        <!-- <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonDark">
+          <li>
+            <a class="dropdown-item" href="/profile"><i class="bi bi-person me-2"></i>Profile</a>
+          </li>
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+          <li>
+            <a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
+          </li>
+        </ul> -->
+      </div>
+    </div>
+  </nav>
+
+  <!--NEW-->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8 offset-md-1">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col">
+              <div class="container-fluid border border-white rounded" style="height: 40vh; max-width: 100%">
+                <div class="row align-items-center justify-content-between" style="padding-top: 2%">
+                  <div class="col">
+                    <button type="button" class="btn btn-warning">English Keyboard Test</button>
+                  </div>
+                  <div class="col-auto">
+                    <button class="btn btn-warning bg-light" type="button" id="time"></button>
+                  </div>
+                </div>
+                <hr />
+                <div id="show-paragraph" class="scrollable-div p-2 overflow-auto" style="max-height: 60%">
+                  <p id="content">
+                    Backpacking, for the uninitiated, is a travel style characterized by minimalism and a focus on
+                    experiences over material possessions. Backpackers typically carry their belongings on their backs
+                    in a large rucksack, venturing off the beaten path to explore hidden gems and immerse themselves in
+                    local cultures. It's a thrilling and often transformative way to see the world, offering a unique
+                    blend of adventure, challenge, and cultural immersion.
+
+                    The beauty of backpacking lies in its flexibility. Unlike traditional package tours, backpackers
+                    create their own itineraries, tailoring their journeys to their interests and budget. This allows
+                    them to explore at their own pace, lingering in places that captivate them and skipping over those
+                    that don't. Whether it's scaling a majestic mountain in Nepal, wandering through bustling street
+                    markets in Southeast Asia, or volunteering at an elephant sanctuary in Thailand, backpacking offers
+                    endless possibilities for adventure and discovery.
+
+                    However, backpacking is not all sunshine and rainbows. It requires a certain level of
+                    resourcefulness and adaptability. Backpackers often find themselves navigating unfamiliar
+                    landscapes, relying on public transportation, and communicating in languages they may not be fluent
+                    in. Budgeting becomes paramount, as every penny counts for accommodation, food, and transportation.
+                    While these challenges can be daunting at first, they ultimately contribute to the sense of
+                    accomplishment and personal growth that backpacking fosters.
+
+                    The heart of backpacking lies in the connections it facilitates. Sharing meals with fellow travelers
+                    in hostels, bartering with local vendors in a foreign market, or simply exchanging smiles with
+                    strangers on a dusty trail fosters a sense of community and shared experience. Backpacking allows
+                    you to step outside your comfort zone and connect with a diverse range of people, each with their
+                    own stories and perspectives. These connections often transcend geographical boundaries, creating
+                    lasting friendships that become cherished mementos of your journey.
+
+                    Ultimately, backpacking is an enriching journey of self-discovery. It pushes you outside your
+                    comfort zone, testing your limits and fostering a sense of resilience. You learn to navigate
+                    unfamiliar situations, appreciate the beauty of simplicity, and find joy in the unexpected. Whether
+                    you're a seasoned traveler or a curious first-timer, backpacking offers a unique opportunity to
+                    explore the world, connect with others, and discover the hidden depths of your own potential. So,
+                    pack your bags, embrace the unknown, and embark on your own unforgettable backpacking adventure!
+                  </p>
+                </div>
+              </div>
+              <br />
+
+              <textarea class="container-fluid border border-white rounded bg-dark text-white"
+                style="height: 30vh; max-width: 100%" id="textInputs" rows="3" placeholder="Type here..."></textarea>
+
+              <!-- Button trigger modal -->
+              <!-- <button
+                  type="button"
+                  id="submit-test"
+                  onclick="calculateResults();"
+                  class="btn btn-warning"
+                  data-toggle="modal"
+                  data-target="#exampleModalCenter"
+                >
+                  Submit -->
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-11 col-sm-8 col-10">
+              <div class="card card-transparent">
+                <div class="card-body">
+                  <h5 class="card-title text-center">Instructions</h5>
+                  <p class="card-text text-white">
+                  <ul>
+                    <li>Avoid unnecessary special keys.</li>
+                    <li>System saves responses on timeout.</li>
+                  </ul>
+                  </p>
+                </div>
+              </div>
+              <br>
+              <div class="font-controls">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-outline-warning" id="increase-font"
+                    onclick="adjustFontSize(1)">A<sup>+</sup></button>
+                  <button type="button" class="btn btn-outline-warning" id="decrease-font"
+                    onclick="adjustFontSize(-1)">A<sup>-</sup></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header row bg-dark">
+          <h5 class="modal-title col-8 text-warning" id="exampleModalLongTitle">TEST RESULTS</h5>
+          <a type="button" class="btn col-4 btn-dark" onclick="closePopup()" data-dismiss="modal" data-bs-theme="dark"
+            aria-label="Close">
+            <img width="20" height="20" src="images/letter-x_9339125.png" alt="delete-sign" />
+          </a>
+        </div>
+        <div class="modal-body bg-dark">
+          <div class="popup-content" id="popup-content">
+            <!-- Results will be displayed here -->
+          </div>
+        </div>
+        <div class="modal-footer bg-dark">
+          <button id="printButton" class="btn btn-secondary" onclick="printResults()">Print Results</button>
+          <button type="button" class="btn btn-warning" data-dismiss="modal"
+            onclick="window.location.reload()">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Moment.js for time -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  <script>
+    // Update current time every second
+    function updateTime() {
+      document.getElementById('current-time').innerText = moment().format('MMMM Do YYYY, h:mm:ss a');
+    }
+    updateTime(); // Update immediately
+    setInterval(updateTime, 1000); // Update every second
+  </script>
+
+  <script>
+    var startTime;
+    var stopTime;
+    var totalTimeTakenForTyping = 0;
+
+    function startTyping() {
+      // Check if startTime is already defined
+      if (typeof startTime === 'undefined') {
+        startTime = new Date().getTime();
+        console.log('Typing started at: ' + new Date(startTime));
+      } else {
+        console.log('Typing has already started at: ' + new Date(startTime));
+      }
+    }
+
+    // function stopTyping() {
+    //     stopTime = new Date().getTime();
+    //     var timeTaken = stopTime - startTime;
+    //     totalTimeTakenForTyping += timeTaken;
+    // }
+
+    function calculatekeystroke() {
+      var userInput = document.getElementById('textInputs').value.trim();
+      const keystrokervalue = userInput.length;
+      return keystrokervalue;
+    }
+    function calculateResults() {
+      stopTime = new Date().getTime();
+      var timeTaken = stopTime - startTime;
+      totalTimeTakenForTyping += timeTaken;
+
+      var countdownContainer = document.getElementById('time');
+      //console.log(countdownContainer)
+
+      if (countdownContainer) {
+        countdownContainer.style.display = 'none';
+      }
+
+      var originalText = document.getElementById('show-paragraph').innerText.trim();
+      var userInput = document.getElementById('textInputs').value.trim();
+
+      // Check if user input is not empty
+      if (userInput === '') {
+        // Handle the case where the user hasn't typed anything
+        alert('Please type something and then submit');
+      } else {
+        // Split the original and user input into arrays of words
+        var lastWordTyped = userInput.split(' ').pop();
+
+        var lower_originalWords = originalText.split(/\s+/);
+        var originalWords = originalText.split(/\s+/);
+        var userWords = userInput.split(/\s+/);
+        var attemptedWords = lower_originalWords.slice(0, userWords.length);
+
+        // Check if the last words in attemptedWords and userWords are the same
+        var lastAttemptedWord = attemptedWords[attemptedWords.length - 1];
+        var lastUserWord = userWords[userWords.length - 1];
+
+        if (lastAttemptedWord !== lastUserWord) {
+          // Find the position of the first occurrence of lastUserWord after the length of attemptedWords
+          var newPosition = lower_originalWords.indexOf(lastUserWord, attemptedWords.length);
+
+          if (newPosition !== -1) {
+            // Declare the new attemptedWords
+            attemptedWords = lower_originalWords.slice(0, newPosition + 1);
+          }
+        }
+
+        console.log(attemptedWords);
+
+        // Calculate various statistics
+        var totalKeystrokes = userInput.length;
+        var totalWordsTyped = userWords.length;
+        var timeTakenMinutes = totalTimeTakenForTyping / (1000 * 60); // Convert totalTimeTakenForTyping to minutes
+
+        // Calculate typing speed dynamically
+        var typingSpeedKPM = Math.round(totalWordsTyped / timeTakenMinutes);
+
+        // Optionally, convert time to seconds
+        var timeTakenSeconds = timeTakenMinutes * 60;
+        var timeTakenMinutes = timeTakenSeconds / 60;
+
+        // Round down the minutes and seconds to integers
+        var roundedMinutes = Math.floor(timeTakenMinutes);
+        var roundedSeconds = Math.floor(timeTakenSeconds % 60);
+
+        var totalTimeTakenOverall = '' + roundedMinutes + ' minute(s) ' + roundedSeconds + ' second(s)';
+
+        // Use a more robust word matching approach
+        var omittedWords = attemptedWords.filter((word, index) => {
+          // Count occurrences of the current word in attemptedWords
+          var countInAttempted = attemptedWords.slice(0, index + 1).filter(w => w === word).length;
+
+          // Count occurrences of the current word in userWords
+          var countInUser = userWords.filter(w => w === word).length;
+
+          // Return true if the count of the current word in attemptedWords is greater than in userWords
+          return countInAttempted > countInUser;
+        });
+
+        var totalIncorrectWords = originalWords.filter((word, index) => userWords[index] && userWords[index] !== word).length;
+
+        var totalCorrectWords = totalWordsTyped - omittedWords.length;
+        var accuracyPercentage = ((totalCorrectWords / totalWordsTyped) * 100).toFixed(2);
+
+        // Output the results
+        console.log('Omitted words: ', omittedWords);
+        console.log('Total correct words: ', totalCorrectWords);
+        console.log('Total incorrect words: ', totalIncorrectWords);
+        console.log('Accuracy percentage: ', accuracyPercentage);
+
+        // Use the correct formula for calculating keystrokes per minute
+        var keystrokesPerMinute = Math.round((totalKeystrokes / timeTakenSeconds) * 60); // Assuming an average word length of 5 characters
+
+        // Use a more accurate formula to calculate words per minute
+        var wordsPerMinute = Math.round(totalWordsTyped / timeTakenMinutes);
+
+        // Use more reliable methods to count backspace, spacebar, and shift key
+        var backspaceCount = userInput.split('').reduce((count, char, index) => (index > 0 && char === '\b' ? count + 1 : count), 0);
+
+        var spacebarCount = userInput.split(/\s+/).length - 1;
+
+        var shiftKeyCount = (userInput.match(/[A-Z]/g) || []).length;
+
+        var correctWordsCount = totalWordsTyped - omittedWords.length;
+
+        // Output or use the calculated statistics as needed
+        console.log('Total Keystrokes:', totalKeystrokes);
+        console.log('Total Words Typed:', totalWordsTyped);
+        console.log('Total Correct Words:', totalCorrectWords);
+        console.log('Total Incorrect Words:', totalIncorrectWords);
+        console.log('Keystrokes Per Minute:', keystrokesPerMinute);
+        console.log('Words Per Minute:', wordsPerMinute);
+        console.log('Backspace Count:', backspaceCount);
+        console.log('Spacebar Count:', spacebarCount);
+        console.log('Shift Key Count:', shiftKeyCount);
+      }
+
+      // Initialize variables for HTML content
+      var popupContent =
+        '<table class="table table-striped table-dark">' +
+        '<tr><th>Statistic</th><th>Value</th></tr>' +
+        '<tr><td><strong>Time Taken</strong></td><td>' +
+        totalTimeTakenOverall +
+        '</td></tr>' +
+        '<tr><td><strong>Accuracy Percentage</strong></td><td>' +
+        parseFloat(accuracyPercentage) +
+        '%</td></tr>' +
+        '<tr><td><strong>Total Keystrokes</strong></td><td>' +
+        totalKeystrokes +
+        '</td></tr>' +
+        '<tr><td><strong>Number of Words Typed</strong></td><td>' +
+        totalWordsTyped +
+        '</td></tr>' +
+        '<tr><td><strong>Words Per Minute</strong></td><td>' +
+        wordsPerMinute +
+        '</td></tr>' +
+        '<tr><td><strong>Keystrokes Per Minute</strong></td><td>' +
+        keystrokesPerMinute +
+        '</td></tr>' +
+        '<tr><td><strong>No. Of Incorrect Words</strong></td><td>' +
+        omittedWords.length +
+        '</td></tr>' +
+        '<tr><td><strong>Total Correct Words Typed</strong></td><td>' +
+        correctWordsCount +
+        '</td></tr>' +
+        '</table>';
+
+      // Determine overall background color for the user input
+      var overallBackgroundColor = totalIncorrectWords === 0 ? 'rgb(76, 205, 153)' : 'rgb(250, 112, 112)';
+
+      // Create a bordered container for the entire user input
+      var userInputContainer =
+        '<div style="border: 2px solid ' + overallBackgroundColor + '; padding: 10px; border-radius: 5px; margin-bottom: 10px;">';
+
+      // Iterate through each word in user input
+      for (var i = 0; i < userWords.length; i++) {
+        // Determine background color based on word matching
+        var backgroundColor = userWords[i] === originalWords[i] ? 'rgb(76, 205, 153)' : 'rgb(250, 112, 112)';
+
+        // Add span element with background color to the bordered container
+        userInputContainer += '<span style="color:' + backgroundColor + ';">' + userWords[i] + '</span> ';
+      }
+
+      // Close the bordered container for the entire user input
+      userInputContainer += '</div>';
+
+      // Add the bordered container to the popup content
+      popupContent += '<div style="max-height: 100px; overflow-y: auto;">' + userInputContainer + '</div>';
+
+      // Update the popup content
+      document.getElementById('popup-content').innerHTML = popupContent;
+
+      // Display the popup
+      document.getElementById('popup').style.display = 'block';
+
+      // Reset timer and start time
+      clearInterval(countdown);
+      startTime = null;
+    }
+
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+      location.reload(); // This line will refresh the page
+    }
+
+    function closePopupAfterPrint() {
+      document.getElementById('popup').style.display = 'none';
+    }
+
+    function printResults() {
+      var popupContent = document.getElementById('popup-content').innerText;
+
+      // Open a new window and write the content to it
+      var printWindow = window.open('', '_blank');
+      printWindow.document.write('<html><head><title><strong>TEST RESULTS</strong></title></head><body>');
+      printWindow.document.write('<pre>' + popupContent + '</pre>');
+      printWindow.document.write('</body></html>');
+      printWindow.document.close();
+
+      // Print the new window
+      printWindow.print();
+
+      // Close the popup
+      closePopupAfterPrint();
+    }
+
+    document.getElementById('printButton').addEventListener('click', function () {
+      printResults();
+    });
+  </script>
+
+  <script>
+    function convertSpaces() {
+      // Get the content of the textarea
+      var inputText = document.getElementById('textInputs').value;
+
+      // Convert double or triple spaces to single space
+      var convertedText = inputText.replace(/ {2,}/g, ' ');
+
+      // Set the converted text back to the textarea
+      document.getElementById('textInputs').value = convertedText;
+    }
+
+    // Attach the convertSpaces function to the input event of the textarea
+    document.getElementById('textInputs').addEventListener('input', convertSpaces);
+  </script>
+
+  <script>
+    //to check the input speling with paragraph
+    //and changing colour on the basis of right and wrong
+
+    function spellCheck() {
+      const testArea = document.getElementById('textInputs');
+      const paragraphText = document.querySelector('#content');
+      let textEntered = testArea.value.trim();
+
+      let newParagraph = '';
+
+      // Original text for spell-checking
+      const originText = paragraphText.innerText.trim().split(' ');
+
+      // Split the entered text into words
+      const enteredWords = textEntered.split(' ');
+
+      // Update color for each word based on correctness
+      for (let i = 0; i < originText.length; i++) {
+        if (i < enteredWords.length) {
+          const enteredWord = enteredWords[i];
+          const originalWord = originText[i];
+
+          // Check if the entered word matches the original word
+          if (enteredWord === originalWord) {
+            // when the word is CORRECT, green color for background
+            newParagraph += `<span style="color: rgb(76, 205, 153);">${originalWord}</span> `;
+          } else if (originalWord.startsWith(enteredWord)) {
+            // when enteredWord is partially correct, yellow color for background
+            const correctPart = originalWord.slice(0, enteredWord.length);
+            const remainingPart = originalWord.slice(enteredWord.length);
+            newParagraph += `<span style="color: rgb(250, 112, 112);">${correctPart}</span>${remainingPart} `;
+          } else {
+            // when the word is INCORRECT, set color as red
+            newParagraph += `<span style="color: rgb(250, 112, 112);">${originalWord}</span> `;
+          }
+        } else {
+          // Display remaining original words with their original color
+          newParagraph += `<span>${originText[i]}</span> `;
+        }
+      }
+
+      // Display the modified paragraph with highlighted words
+      paragraphText.innerHTML = newParagraph;
+    }
+  </script>
+
+  <script>
+
+    // document.addEventListener('DOMContentLoaded', function () {
+    //   populateDropdown();
+    //   document.getElementById('dropdown').addEventListener('change', selectParagraph);
+    // });
+
+    // function populateDropdown() {
+    //   const dropdown = document.getElementById('dropdown');
+
+    //   const totalOptions = englishParagraphs.length;
+
+    //   for (let i = 0; i < totalOptions; i++) {
+    //     const option = document.createElement('option');
+    //     option.value = i;
+    //     option.textContent = `Passage ${i + 1}`;
+    //     dropdown.appendChild(option);
+    //   }
+    //   // Set default selection to the first paragraph
+    //   dropdown.selectedIndex = 0;
+
+    //   // Trigger the selectParagraph function to update the displayed paragraph
+    //   selectParagraph();
+    // }
+
+    function selectParagraph() {
+      const dropdown = document.getElementById('dropdown');
+      const selectedOption = dropdown.value;
+      console.log(selectedOption);
+      const selectedParagraph = englishParagraphs[selectedOption];
+      const showText = document.querySelector('#show-paragraph p');
+
+      showText.textContent = selectedParagraph;
+    }
+  </script>
+</body>
+
+</html>

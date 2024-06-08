@@ -9,7 +9,7 @@ services:
       context: ./
       dockerfile: Dockerfile.dev
       tags:
-      - amandevars/mpssctyping-server:latest 
+      - amandevars/mpssctyping-server:v1
     ports:
       - "3000:3000"
     volumes:
@@ -18,8 +18,6 @@ services:
     restart: "unless-stopped"
     networks:
       - backend
-    links:
-      - proxy
 
 
 networks:
