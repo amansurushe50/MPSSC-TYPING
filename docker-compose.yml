@@ -9,7 +9,7 @@ services:
       context: ./
       dockerfile: Dockerfile.dev
       tags:
-      - amandevars/mpssctyping-server:v1
+      - amandevars/mpssctyping-server:v1.1
     ports:
       - "3000:3000"
     volumes:

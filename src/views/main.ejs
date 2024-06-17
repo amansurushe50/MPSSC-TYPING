@@ -464,11 +464,28 @@
                                             attemptedWords = lower_originalWords.slice(0, newPosition + 1);
                                         }
                                     }
+                                    // Ensure the first 1860 keystrokes are correct
+                                    var first1860UserKeystrokes = userInput.substring(0, 1860);
+                                    var first1860Original = originalText.substring(0, 1860);
 
-                                    console.log(attemptedWords);
+                                    var correctKeystrokes = 0;
+                                    var result;
+                                    for (var i = 0; i < first1860UserKeystrokes.length; i++) {
+                                        if (first1860UserKeystrokes[i] === first1860Original[i]) {
+                                            correctKeystrokes++;
+                                        }
+                                    }
+                                    if(correctKeystrokes===1860){
+                                        result = 'PASS';
+                                    }
+                                    else{
+                                        result = 'FAIL';
+                                    }
+                                    console.log('correctkeystroke',correctKeystrokes);
 
                                     // Calculate various statistics
                                     var totalKeystrokes = userInput.length;
+
                                     var totalWordsTyped = userWords.length;
                                     var timeTakenMinutes = totalTimeTakenForTyping / (1000 * 60); // Convert totalTimeTakenForTyping to minutes
 
@@ -503,7 +520,7 @@
                                         userWords[index] && userWords[index] !== word
                                     ).length;
 
-                                    
+
 
                                     var totalCorrectWords = totalWordsTyped - omittedWords.length;
                                     var accuracyPercentage = ((totalCorrectWords / totalWordsTyped) * 100).toFixed(2);
@@ -529,8 +546,6 @@
                                     var shiftKeyCount = (userInput.match(/[A-Z]/g) || []).length;
 
                                     var correctWordsCount = totalWordsTyped - omittedWords.length
-                                    // Calculate incorrect keystrokes
-                                    var wrongKeystrokes = totalKeystrokes - totalIncorrectWords.length; // Total non-space characters
 
                                     // Output or use the calculated statistics as needed
                                     console.log("Total Keystrokes:", totalKeystrokes);
@@ -542,7 +557,6 @@
                                     console.log("Backspace Count:", backspaceCount);
                                     console.log("Spacebar Count:", spacebarCount);
                                     console.log("Shift Key Count:", shiftKeyCount);
-                                    console.log("incorrectKeystrokes:", incorrectKeystrokes);
 
                                 }
 
@@ -550,6 +564,8 @@
                                 var popupContent =
                                     '<table class="table table-striped table-dark">' +
                                     '<tr><th>Statistic</th><th>Value</th></tr>' +
+                                    '<tr><td><strong>Result</strong></td><td class="text-warning">' + result + '</td></tr>' +
+                                    '<tr><td><strong>Correct Keystroke</strong></td><td>' + correctKeystrokes + '</td></tr>' +
                                     '<tr><td><strong>Time Taken</strong></td><td>' + totalTimeTakenOverall + '</td></tr>' +
                                     '<tr><td><strong>Accuracy Percentage</strong></td><td>' + parseFloat(accuracyPercentage) + '%</td></tr>' +
                                     '<tr><td><strong>Total Keystrokes</strong></td><td>' + totalKeystrokes + '</td></tr>' +
@@ -661,7 +677,7 @@
 
                                 // Original text for spell-checking
                                 const originText = paragraphText.innerText.trim().split(" ");
-                                
+
                                 // Split the entered text into words
                                 const enteredWords = textEntered.split(" ");
 

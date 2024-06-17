@@ -465,7 +465,7 @@
 
         var correctWordsCount = totalWordsTyped - omittedWords.length;
      var result;
-        if(parseInt(accuracyPercentage) >= 93){
+        if(parseInt(accuracyPercentage) >= 93 && totalKeystrokes >=1800){
            result = 'PASS'
         }
         else{
