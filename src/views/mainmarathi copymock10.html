@@ -278,6 +278,30 @@ function decreaseFontSize() {
             cursor: pointer;
         }
 
+        
+  </style>
+  <style>
+    ::placeholder {
+      /* Set the color of the placeholder text */
+      color: #ffc107 !important;
+      /* Adjust the color as needed */
+    }
+
+    .card-transparent {
+      background-color: rgba(255, 255, 255, 0);
+      ;
+      /* Adjust the transparency by changing the alpha value */
+      border: 1px solid white;
+      /* Remove the card border if desired */
+    }
+
+    .card-transparent .card-title,
+    .card-body {
+      color: aliceblue;
+    }
+    .textarea {
+            overflow-y: scroll;
+        }
   </style>
 </head>
 
@@ -332,75 +356,94 @@ function decreaseFontSize() {
 </script>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const inputItem = document.getElementById("test-area");
-        const timeName = document.getElementById("timeName");
-        const time = document.getElementById("time");
-        const thirty = document.getElementById("thirty");
-        const sixty = document.getElementById("sixty");
-        const cwName = document.getElementById("cwName");
-        const cw = document.getElementById("cw");
+    
+    document.addEventListener('DOMContentLoaded', function () {
+      const inputItem = document.getElementById('test-area');
+      const timeName = document.getElementById('timeName');
+      const time = document.getElementById('time');
+      const thirty = document.getElementById('thirty');
+      const sixty = document.getElementById('sixty');
+      const cwName = document.getElementById('cwName');
+      const cw = document.getElementById('cw');
 
+      wordsSubmitted = 0;
+      var wordsCorrect = 0;
 
-        var wordsSubmitted = 0;
-        var wordsCorrect = 0;
-        let timer = parseInt(timingDropdown.value);
-        var flag = 0;
-        var seconds;
-
+    
         // on Input
-        inputItem.addEventListener('input', function (event) {
-            if (flag === 0) {
-                flag = 1;
-                timeStart();
-                startTyping();
-            }
+        inputItem.addEventListener("input", function (event) {
+          if (flag === 0) {
+            flag = 1;
+            timeStart();
+            startTyping();
+          }
         });
 
-        // time selection
-        timingDropdown.addEventListener("change", function () {
-            timer = parseInt(timingDropdown.value);
-            updateTimerDisplay(timer); // Update timer display when dropdown value changes
-        });
-
-        // Function to update the timer display
-        // Function to update the timer display
-        function updateTimerDisplay(timerValue) {
-            let minutes = Math.floor(timerValue); // Extract minutes
-            let seconds = Math.round((timerValue - minutes) * 60); // Round seconds to nearest integer
-            let displayText = minutes + " Min" + " : " + (seconds < 10 ? "0" : "") + seconds + " sec";
-            time.innerText = displayText;
+      //time dropdown
+      let timer = 10//parseInt('<%= timer %>');
+      var flag = 0;
+      var seconds;
+      window.onload = function() {
+        if (flag === 0) {
+          flag = 1;
+          timeStart();
+          startTyping();
         }
+    };
+      //on Input
+      // inputItem.addEventListener('input', function (event) {
+      //   if (flag === 0) {
+      //     flag = 1;
+      //     timeStart();
+      //     startTyping();
+      //   }
+      // });
 
+      // time selection
+      // timingDropdown.addEventListener('change', function () {
+      timer = 10//parseInt('<%= timer %>');
+      updateTimerDisplay(timer); // Update timer display when dropdown value changes
+      // });
 
-        // start the timer countdown
-        function timeStart() {
-            let totalSeconds = timer * 60; // Convert minutes to seconds
-            seconds = setInterval(function () {
-                let minutes = Math.floor(totalSeconds / 60);
-                let secondsLeft = totalSeconds % 60;
-                updateTimerDisplay(minutes + secondsLeft / 60); // Update timer display
-                if (totalSeconds <= 0) {
-                    timeOver();
-                    clearInterval(seconds);
-                    document.getElementById("submit-test").click(); // Trigger button click
-                }
-                totalSeconds--; // Decrement totalSeconds only once per interval
+      // Function to update the timer display
+      // Function to update the timer display
+      function updateTimerDisplay(timerValue) {
+        let minutes = Math.floor(timerValue); // Extract minutes
+        let seconds = Math.round((timerValue - minutes) * 60); // Round seconds to nearest integer
+        let displayText = minutes + ' Min' + ' : ' + (seconds < 10 ? '0' : '') + seconds + ' sec';
+        time.innerText = displayText;
+      }
 
-            }, 1000);
-        }
+      // start the timer countdown
+      function timeStart() {
+        let totalSeconds = timer * 60; // Convert minutes to seconds
+        seconds = setInterval(function () {
+          let minutes = Math.floor(totalSeconds / 60);
+          let secondsLeft = totalSeconds % 60;
+          updateTimerDisplay(minutes + secondsLeft / 60); // Update timer display
+          if (totalSeconds <= 0) {
+            timeOver();
+            clearInterval(seconds);
+            const result = calculatekeystroke();
+            const mocktesturl = 'englishmocktest';
+            const break1 = 5;
+            window.location.href = `/breakpage/${result}/${break1}/${mocktesturl}`;
 
-        // disable textarea and wait for restart
-        function timeOver() {
-            inputItem.disabled = true;
-        }
+            // Use the fetch API to make a POST request to the server
+          }
+          totalSeconds--; // Decrement totalSeconds only once per interval
+        }, 1000);
+      }
 
-        // Initial update of timer display
-        updateTimerDisplay(timer);
+      // disable textarea and wait for restart
+      function timeOver() {
+        inputItem.disabled = true;
+      }
 
-
+      // Initial update of timer display
+      updateTimerDisplay(timer);
     });
-</script>
+  </script>
 
     <!-- app -->
    <!--NEW-->
@@ -414,8 +457,8 @@ function decreaseFontSize() {
                             style="height: 40vh; max-width: 100%;">
                             <div class="row align-items-center justify-content-between" style="padding-top: 2%;">
                                 <div class="col">
-                                   <a href="/english"><button type="button" class="btn btn-outline-warning">English</button></a>
-                                    <a href="/marathi"><button type="button" class="btn btn-warning">Marathi</button></a>
+                                   <!-- <a href="/english"><button type="button" class="btn btn-outline-warning">English</button></a> -->
+                                    <a href="/marathi"><button type="button" class="btn btn-warning">Marathi Mock Test</button></a>
                                 </div>
                                 <div class="col-auto">
                                     <button class="btn btn-warning bg-light" type="button" id="time">
@@ -426,7 +469,9 @@ function decreaseFontSize() {
                             <div id="show-paragraph" class="scrollable-div p-2 overflow-auto"
                                 style="max-height: 60%;">
                                 <p id="content">
-                                    <!-- Your paragraph content here -->
+                                    घर, ते ही स्‍वतःच्‍या मालकीचे, २-४ खिडक्‍या आणि बाल्‍कनी असणारे तर यासारखा अवर्णनीय आनंद दूसरा नाही. त्‍यातच बाल्‍कनी जरा प्रशस्‍त असेल तर सारख्‍या आकाराच्‍या लहान लहान कुंड्या ठेऊन बाल्‍कनीमध्‍ये छान बाग तयार करता येते. बसायचे असल्‍यास एक आरामखुर्ची आणि साेबत या आकर्षक अश्‍या कुंड्या. यामध्‍ये सकाळ-संध्‍याकाळच्‍या वेळ किती सुंदर जाताे हे अनुभवल्‍याशिवाय समजणार नाही. जर बाल्‍कनी माेठी असेल तर आपण बागेची हाैस निश्चितपणे पूर्ण करू शकताे. मात्र ती छाेटी असेल तर आपल्‍या आवडीला थाेडी मुरड घालावीच लागते. अशावेळी उभ्‍या राहतात त्‍या खिडक्‍या, त्‍यांचाच उपयाेगी बागेची हाैस पूर्ण करण्‍यासाठी करता येताे. आपल्‍या घराची छाेटी खिडकी आपल्‍याला माेकळ्या हवेचा आनंद तर देतेच, पण त्‍याचबराेबर आपल्‍या मनातील एक सुंदर छानसा बागेची कल्‍पना प्रत्‍यक्ष कृतीत आणण्‍याची संधीपण देते. भरपूर प्रकाश, हवा आणि ऊर्जा येण्‍यासाठी खिडकी ही अशा बागेसाठी उत्तम. घरात पाहुण्‍यांना व बच्‍चे कंपनीसाठी खिडकी हा वेगळा विरंगुळा आहे. एक वक्‍ता एका अतिशय महत्‍वाच्‍या विषयावर तळमळीने भाषण देत हाेता मात्र चुळबुळ सुरू हाेती काहिजण इकडे बघ तर काहिजण लहानमुलांकडे बघत हाेते तेव्‍हा अवधान खेचुन एक गाेष्‍ट सांगायला सुरूवात केली. कथेची सुरूवात हाेताच जादूची कांडी फिरल्‍याप्रमाणे सर्व श्राेते अतिशय सावधपणे गाेष्‍ट ऐकु लागते वक्‍ता म्‍हणाला, एकदा एक देव, एक पाणसर्प आणि एक चिमणी प्रवासाला निघाले चालताना त्‍यांना वाटेत एक नदी लागली चिमणीने उडून पैलतीर गाठला पाणसर्प पाण्‍यातून पाेहत पलीकडे पाेहाेचला इतकेच असे सांगून आपले अर्धवट राहिलेले भाषण चालू केले श्राेते आता जाेरजाेराने ओरडू लागले अहाे वक्‍ते महाशय, देवाचे पुढे काय झाले, त्‍याने कशी काय नदी पार केली त्‍या तिघांचे पुढे काय झाले वक्‍त्‍याने शांतपणे उत्तर दिले, देवच ताे, तेव्हा ती नदी पार करून जाण्‍याचे सामर्थ्य त्‍याच्‍याठायी असणे सहाजिकच आहे. ताे पाण्‍यावरुनही चालत गेला असेल किंवा पाण्‍याला बाजूला सारून जाण्‍याचीही त्‍याच्‍यात हाेती पण ताे अलिकडच्‍यात तीरावर थांबला. माेठ्याने विचारले की देवाने असे अलिकडेच थांबण्‍याचे कारण काय. यावर वक्‍ता म्‍हणाला, ज्‍या मूर्खाना महत्‍वाच्‍या विषयावरचे असणारे व्‍याख्‍यान न आवडतात त्‍या मुर्खाचा निश्चित सत्‍कार केला पाहिजे.
+
+
                                 </p>
                             </div>
                         </div><br>
@@ -435,10 +480,10 @@ function decreaseFontSize() {
 
 
                         <!-- Button trigger modal -->
-                        <button type="button" id="submit-test" onclick="calculateResults();" class="btn btn-warning"
+                        <!-- <button type="button" id="submit-test" onclick="calculateResults();" class="btn btn-warning"
                             data-toggle="modal" data-target="#exampleModalCenter">
                             Submit
-                        </button>
+                        </button> -->
                     </div>
                 </div>
             </div>
@@ -446,16 +491,16 @@ function decreaseFontSize() {
         
         <div class="col-md-2">
             <form id="paragraphForm">
-                  <div class="dropdown">
+                  <!-- <div class="dropdown">
                     <label><b>Select a Passage</b></label>
                     <select class="form-select bg-dark text-light" id="dropdown" aria-label="Select a Passage">
                     </select>
-                </div>
+                </div> -->
             </form><br>
-            <form id="paragraphForm">
+            <!-- <form id="paragraphForm">
                 <div class="form-group">
                     <label for="time"><b>Select Timing</b></label>
-                    <!-- Options for timing as required -->
+                     Options for timing as required 
                     <select id="timingDropdown" class="form-select bg-dark text-light">
                         <option value="1"  >1 Min</option>
                         <option value="2">2 Min</option>
@@ -479,13 +524,13 @@ function decreaseFontSize() {
                         <option value="20">20 Min</option>
                     </select>
                 </div>
-            </form><br>
+            </form><br> -->
 
             <div class="form-group">
                 <div class="grid">
                     <div >
                         <label class="checkbox" for="highlightToggle">
-                            <input type="checkbox" id="highlightToggle"  onchange="spellCheckCheckbox()" />
+                            <!-- <input type="checkbox" id="highlightToggle"  onchange="spellCheckCheckbox()" />
                             <svg viewBox="0 0 21 18">
                                 <symbol id="tick-path" viewBox="0 0 21 18" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M5.22003 7.26C5.72003 7.76 7.57 9.7 8.67 11.45C12.2 6.05 15.65 3.5 19.19 1.69" fill="none" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" />
@@ -502,14 +547,25 @@ function decreaseFontSize() {
                                 <path d="M5.88086 5.89441L9.53504 4.26746" />
                                 <path d="M5.5274 8.78838L9.45391 9.55161" />
                                 <path d="M3.49371 4.22065L5.55387 0.79198" />
-                            </svg>
+                            </svg> -->
                         </label>
                     </div>
-                    <div class="g-col-6">
+                    <!-- <div class="g-col-6">
                         <label>
-                            <input type="checkbox" id="highlight-check" checked> Enable Highlight
+                            <input type="checkbox" id="highlight-check" > Enable Highlight
                         </label>
-                    </div>
+                    </div> -->
+                    <div class="card card-transparent">
+                        <div class="card-body">
+                          <h5 class="card-title text-center">Instructions</h5>
+                          <p class="card-text text-white">
+                          <ul>
+                            <li>Avoid unnecessary special keys.</li>
+                            <li>System saves responses on timeout.</li>
+                          </ul>
+                          </p>
+                        </div>
+                      </div>
                   </div>
             </div>
             <br>
@@ -529,11 +585,11 @@ function decreaseFontSize() {
                             <button type="button" class="btn btn-outline-warning" id="increase-font" onclick="adjustFontSize(1)">A<sup>+</sup></button>
                             <button type="button" class="btn btn-outline-warning" id="decrease-font" onclick="adjustFontSize(-1)">A<sup>-</sup></button>
                         </div>
-                <div class="restart">
+                <!-- <div class="restart">
                     <button id="restartButton" class="btn btn-warning mt-3" onclick="location.reload()">
                         <i class="mdi mdi-refresh"></i> RESTART
                     </button>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -2460,9 +2516,9 @@ function toggleSpellCheck() {
        <script>
         //colorr and enable diasaable ------------------------------------------------------------------------------------------------------------
         document.addEventListener('DOMContentLoaded', () => {
-    let spellCheckEnabled = true;
+        let spellCheckEnabled = false;
 
-    function spellCheck() {
+         function spellCheck() {
         let textEntered = testArea.value;
         displayMarathiText(textEntered);
 

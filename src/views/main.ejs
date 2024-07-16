@@ -215,6 +215,28 @@
             content.style.fontSize = newSize;
         }
     </script>
+
+<script>
+    // Add an event listener to the 'keydown' event
+    document.addEventListener('keydown', function(event) {
+        // Check if the pressed key is F12
+        if (event.key === 'F12' || event.keyCode === 123) {
+            // Prevent the default behavior (opening developer tools)
+            event.preventDefault();
+        }
+    });
+
+    // Add an event listener to the 'keydown' event
+    document.addEventListener('keydown', function(event) {
+        // Check if the pressed key is Caps Lock
+        if (event.getModifierState('CapsLock')) {
+            // Prevent the default behavior (activating Caps Lock)
+            event.preventDefault();
+            // Show alert informing the user that turning on Caps Lock is not allowed
+            alert('Turning on Caps Lock is not allowed. Please turn off Caps Lock manually.');
+        }
+    });
+</script>
     <nav class="navbar navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="#">

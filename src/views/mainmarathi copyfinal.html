@@ -239,45 +239,30 @@ function decreaseFontSize() {
           box-sizing: inherit;
       }
       
- /* Popup container */
- .popup {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.4);
-        }
+ 
+  </style>
+  <style>
+    ::placeholder {
+      /* Set the color of the placeholder text */
+      color: #ffc107 !important;
+      /* Adjust the color as needed */
+    }
 
-        /* Popup content */
-        .popup-content {
-            color: black;
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 600px;
-        }
+    .card-transparent {
+      background-color: rgba(255, 255, 255, 0);
+      ;
+      /* Adjust the transparency by changing the alpha value */
+      border: 1px solid white;
+      /* Remove the card border if desired */
+    }
 
-        /* Close button */
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
+    .card-transparent .card-title,
+    .card-body {
+      color: aliceblue;
+    }
+    .textarea {
+            overflow-y: scroll;
         }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
   </style>
 </head>
 
@@ -332,75 +317,89 @@ function decreaseFontSize() {
 </script>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const inputItem = document.getElementById("test-area");
-        const timeName = document.getElementById("timeName");
-        const time = document.getElementById("time");
-        const thirty = document.getElementById("thirty");
-        const sixty = document.getElementById("sixty");
-        const cwName = document.getElementById("cwName");
-        const cw = document.getElementById("cw");
+    
+    document.addEventListener('DOMContentLoaded', function () {
+      const inputItem = document.getElementById('test-area');
+      const timeName = document.getElementById('timeName');
+      const time = document.getElementById('time');
+      const thirty = document.getElementById('thirty');
+      const sixty = document.getElementById('sixty');
+      const cwName = document.getElementById('cwName');
+      const cw = document.getElementById('cw');
 
+      wordsSubmitted = 0;
+      var wordsCorrect = 0;
 
-        var wordsSubmitted = 0;
-        var wordsCorrect = 0;
-        let timer = parseInt(timingDropdown.value);
-        var flag = 0;
-        var seconds;
-
+    
         // on Input
-        inputItem.addEventListener('input', function (event) {
-            if (flag === 0) {
-                flag = 1;
-                timeStart();
-                startTyping();
-            }
+        inputItem.addEventListener("input", function (event) {
+          if (flag === 0) {
+            flag = 1;
+            timeStart();
+            startTyping();
+          }
         });
 
-        // time selection
-        timingDropdown.addEventListener("change", function () {
-            timer = parseInt(timingDropdown.value);
-            updateTimerDisplay(timer); // Update timer display when dropdown value changes
-        });
-
-        // Function to update the timer display
-        // Function to update the timer display
-        function updateTimerDisplay(timerValue) {
-            let minutes = Math.floor(timerValue); // Extract minutes
-            let seconds = Math.round((timerValue - minutes) * 60); // Round seconds to nearest integer
-            let displayText = minutes + " Min" + " : " + (seconds < 10 ? "0" : "") + seconds + " sec";
-            time.innerText = displayText;
+      //time dropdown
+      let timer = 10//parseInt('<%= timer %>');
+      var flag = 0;
+      var seconds;
+      window.onload = function() {
+        if (flag === 0) {
+          flag = 1;
+          timeStart();
+          startTyping();
         }
+    };
+      //on Input
+      // inputItem.addEventListener('input', function (event) {
+      //   if (flag === 0) {
+      //     flag = 1;
+      //     timeStart();
+      //     startTyping();
+      //   }
+      // });
 
+      // time selection
+      // timingDropdown.addEventListener('change', function () {
+      timer = 10;//parseInt('<%= timer %>');
+      updateTimerDisplay(timer); // Update timer display when dropdown value changes
+      // });
 
-        // start the timer countdown
-        function timeStart() {
-            let totalSeconds = timer * 60; // Convert minutes to seconds
-            seconds = setInterval(function () {
-                let minutes = Math.floor(totalSeconds / 60);
-                let secondsLeft = totalSeconds % 60;
-                updateTimerDisplay(minutes + secondsLeft / 60); // Update timer display
-                if (totalSeconds <= 0) {
+      // Function to update the timer display
+      // Function to update the timer display
+      function updateTimerDisplay(timerValue) {
+        let minutes = Math.floor(timerValue); // Extract minutes
+        let seconds = Math.round((timerValue - minutes) * 60); // Round seconds to nearest integer
+        let displayText = minutes + ' Min' + ' : ' + (seconds < 10 ? '0' : '') + seconds + ' sec';
+        time.innerText = displayText;
+      }
+
+      // start the timer countdown
+      function timeStart() {
+        let totalSeconds = timer * 60; // Convert minutes to seconds
+        seconds = setInterval(function () {
+          let minutes = Math.floor(totalSeconds / 60);
+          let secondsLeft = totalSeconds % 60;
+          updateTimerDisplay(minutes + secondsLeft / 60); // Update timer display
+          if (totalSeconds <= 0) {
                     timeOver();
                     clearInterval(seconds);
                     document.getElementById("submit-test").click(); // Trigger button click
                 }
-                totalSeconds--; // Decrement totalSeconds only once per interval
+          totalSeconds--; // Decrement totalSeconds only once per interval
+        }, 1000);
+      }
 
-            }, 1000);
-        }
+      // disable textarea and wait for restart
+      function timeOver() {
+        inputItem.disabled = true;
+      }
 
-        // disable textarea and wait for restart
-        function timeOver() {
-            inputItem.disabled = true;
-        }
-
-        // Initial update of timer display
-        updateTimerDisplay(timer);
-
-
+      // Initial update of timer display
+      updateTimerDisplay(timer);
     });
-</script>
+  </script>
 
     <!-- app -->
    <!--NEW-->
@@ -414,8 +413,8 @@ function decreaseFontSize() {
                             style="height: 40vh; max-width: 100%;">
                             <div class="row align-items-center justify-content-between" style="padding-top: 2%;">
                                 <div class="col">
-                                   <a href="/english"><button type="button" class="btn btn-outline-warning">English</button></a>
-                                    <a href="/marathi"><button type="button" class="btn btn-warning">Marathi</button></a>
+                                   <!-- <a href="/english"><button type="button" class="btn btn-outline-warning">English</button></a> -->
+                                    <a href="/marathi"><button type="button" class="btn btn-warning">Marathi Final Test</button></a>
                                 </div>
                                 <div class="col-auto">
                                     <button class="btn btn-warning bg-light" type="button" id="time">
@@ -426,14 +425,16 @@ function decreaseFontSize() {
                             <div id="show-paragraph" class="scrollable-div p-2 overflow-auto"
                                 style="max-height: 60%;">
                                 <p id="content">
-                                    <!-- Your paragraph content here -->
+                                    घर, ते ही स्‍वतःच्‍या मालकीचे, २-४ खिडक्‍या आणि बाल्‍कनी असणारे तर यासारखा अवर्णनीय आनंद दूसरा नाही. त्‍यातच बाल्‍कनी जरा प्रशस्‍त असेल तर सारख्‍या आकाराच्‍या लहान लहान कुंड्या ठेऊन बाल्‍कनीमध्‍ये छान बाग तयार करता येते. बसायचे असल्‍यास एक आरामखुर्ची आणि साेबत या आकर्षक अश्‍या कुंड्या. यामध्‍ये सकाळ-संध्‍याकाळच्‍या वेळ किती सुंदर जाताे हे अनुभवल्‍याशिवाय समजणार नाही. जर बाल्‍कनी माेठी असेल तर आपण बागेची हाैस निश्चितपणे पूर्ण करू शकताे. मात्र ती छाेटी असेल तर आपल्‍या आवडीला थाेडी मुरड घालावीच लागते. अशावेळी उभ्‍या राहतात त्‍या खिडक्‍या, त्‍यांचाच उपयाेगी बागेची हाैस पूर्ण करण्‍यासाठी करता येताे. आपल्‍या घराची छाेटी खिडकी आपल्‍याला माेकळ्या हवेचा आनंद तर देतेच, पण त्‍याचबराेबर आपल्‍या मनातील एक सुंदर छानसा बागेची कल्‍पना प्रत्‍यक्ष कृतीत आणण्‍याची संधीपण देते. भरपूर प्रकाश, हवा आणि ऊर्जा येण्‍यासाठी खिडकी ही अशा बागेसाठी उत्तम. घरात पाहुण्‍यांना व बच्‍चे कंपनीसाठी खिडकी हा वेगळा विरंगुळा आहे. एक वक्‍ता एका अतिशय महत्‍वाच्‍या विषयावर तळमळीने भाषण देत हाेता मात्र चुळबुळ सुरू हाेती काहिजण इकडे बघ तर काहिजण लहानमुलांकडे बघत हाेते तेव्‍हा अवधान खेचुन एक गाेष्‍ट सांगायला सुरूवात केली. कथेची सुरूवात हाेताच जादूची कांडी फिरल्‍याप्रमाणे सर्व श्राेते अतिशय सावधपणे गाेष्‍ट ऐकु लागते वक्‍ता म्‍हणाला, एकदा एक देव, एक पाणसर्प आणि एक चिमणी प्रवासाला निघाले चालताना त्‍यांना वाटेत एक नदी लागली चिमणीने उडून पैलतीर गाठला पाणसर्प पाण्‍यातून पाेहत पलीकडे पाेहाेचला इतकेच असे सांगून आपले अर्धवट राहिलेले भाषण चालू केले श्राेते आता जाेरजाेराने ओरडू लागले अहाे वक्‍ते महाशय, देवाचे पुढे काय झाले, त्‍याने कशी काय नदी पार केली त्‍या तिघांचे पुढे काय झाले वक्‍त्‍याने शांतपणे उत्तर दिले, देवच ताे, तेव्हा ती नदी पार करून जाण्‍याचे सामर्थ्य त्‍याच्‍याठायी असणे सहाजिकच आहे. ताे पाण्‍यावरुनही चालत गेला असेल किंवा पाण्‍याला बाजूला सारून जाण्‍याचीही त्‍याच्‍यात हाेती पण ताे अलिकडच्‍यात तीरावर थांबला. माेठ्याने विचारले की देवाने असे अलिकडेच थांबण्‍याचे कारण काय. यावर वक्‍ता म्‍हणाला, ज्‍या मूर्खाना महत्‍वाच्‍या विषयावरचे असणारे व्‍याख्‍यान न आवडतात त्‍या मुर्खाचा निश्चित सत्‍कार केला पाहिजे.
+
+
                                 </p>
                             </div>
                         </div><br>
 
                         <textarea class="container-fluid border border-white rounded bg-dark text-white" style="height: 30vh; max-width: 100%;" id="test-area" lang="mr" spellcheck="false" rows="3" placeholder="Type here..." oninput="spellCheck()"></textarea>
 
-
+                            
                         <!-- Button trigger modal -->
                         <button type="button" id="submit-test" onclick="calculateResults();" class="btn btn-warning"
                             data-toggle="modal" data-target="#exampleModalCenter">
@@ -446,16 +447,16 @@ function decreaseFontSize() {
         
         <div class="col-md-2">
             <form id="paragraphForm">
-                  <div class="dropdown">
+                  <!-- <div class="dropdown">
                     <label><b>Select a Passage</b></label>
                     <select class="form-select bg-dark text-light" id="dropdown" aria-label="Select a Passage">
                     </select>
-                </div>
+                </div> -->
             </form><br>
-            <form id="paragraphForm">
+            <!-- <form id="paragraphForm">
                 <div class="form-group">
                     <label for="time"><b>Select Timing</b></label>
-                    <!-- Options for timing as required -->
+                     Options for timing as required 
                     <select id="timingDropdown" class="form-select bg-dark text-light">
                         <option value="1"  >1 Min</option>
                         <option value="2">2 Min</option>
@@ -479,14 +480,14 @@ function decreaseFontSize() {
                         <option value="20">20 Min</option>
                     </select>
                 </div>
-            </form><br>
+            </form><br> -->
 
             <div class="form-group">
                 <div class="grid">
                     <div >
                         <label class="checkbox" for="highlightToggle">
-                            <input type="checkbox" id="highlightToggle"  onchange="spellCheckCheckbox()" />
-                            <svg viewBox="0 0 21 18">
+                            <!-- <input type="checkbox" id="highlightToggle"  onchange="spellCheckCheckbox()" /> -->
+                            <!-- <svg viewBox="0 0 21 18">
                                 <symbol id="tick-path" viewBox="0 0 21 18" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M5.22003 7.26C5.72003 7.76 7.57 9.7 8.67 11.45C12.2 6.05 15.65 3.5 19.19 1.69" fill="none" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" />
                                 </symbol>
@@ -497,7 +498,7 @@ function decreaseFontSize() {
                                 </defs>
                                 <use class="tick" href="#tick-path" stroke="currentColor" />
                                 <path fill="white" mask="url(#tick)" d="M18 9C18 10.4464 17.9036 11.8929 17.7589 13.1464C17.5179 15.6054 15.6054 17.5179 13.1625 17.7589C11.8929 17.9036 10.4464 18 9 18C7.55357 18 6.10714 17.9036 4.85357 17.7589C2.39464 17.5179 0.498214 15.6054 0.241071 13.1464C0.0964286 11.8929 0 10.4464 0 9C0 7.55357 0.0964286 6.10714 0.241071 4.8375C0.498214 2.39464 2.39464 0.482143 4.85357 0.241071C6.10714 0.0964286 7.55357 0 9 0C10.4464 0 11.8929 0.0964286 13.1625 0.241071C15.6054 0.482143 17.5179 2.39464 17.7589 4.8375C17.9036 6.10714 18 7.55357 18 9Z" />
-                            </svg>
+                            </svg> -->
                             <svg class="lines" viewBox="0 0 11 11">
                                 <path d="M5.88086 5.89441L9.53504 4.26746" />
                                 <path d="M5.5274 8.78838L9.45391 9.55161" />
@@ -505,39 +506,95 @@ function decreaseFontSize() {
                             </svg>
                         </label>
                     </div>
-                    <div class="g-col-6">
+                    <!-- <div class="g-col-6">
                         <label>
-                            <input type="checkbox" id="highlight-check" checked> Enable Highlight
+                            <input type="checkbox" id="highlight-check" > Enable Highlight
                         </label>
-                    </div>
+                    </div> -->
+                    <div class="card card-transparent">
+                        <div class="card-body">
+                          <h5 class="card-title text-center">Instructions</h5>
+                          <p class="card-text text-white">
+                          <ul>
+                            <li>Avoid unnecessary special keys.</li>
+                            <li>System saves responses on timeout.</li>
+                          </ul>
+                          </p>
+                        </div>
+                      </div>
                   </div>
             </div>
             <br>
 
             
-            <!-- Popup Modal -->
+            <!-- Popup Modal
             <div id="popup" class="popup">
                 <div class="popup-content">
                     <span class="close" onclick="closePopup()">&times;</span>
                     <div id="popup-content"></div>
                     <button type="button" id="printButton" onclick="printResults()">Print</button>
                 </div>
-            </div>
+            </div> -->
 
             <div class="font-controls">
                         <div class="btn-group">
                             <button type="button" class="btn btn-outline-warning" id="increase-font" onclick="adjustFontSize(1)">A<sup>+</sup></button>
                             <button type="button" class="btn btn-outline-warning" id="decrease-font" onclick="adjustFontSize(-1)">A<sup>-</sup></button>
                         </div>
-                <div class="restart">
+                <!-- <div class="restart">
                     <button id="restartButton" class="btn btn-warning mt-3" onclick="location.reload()">
                         <i class="mdi mdi-refresh"></i> RESTART
                     </button>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
 </div>
+
+
+
+ <!-- Modal -->
+ <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header row bg-dark">
+          <h5 class="modal-title col-8 text-warning" id="exampleModalLongTitle">TEST RESULTS</h5>
+          <a type="button" class="btn col-4 btn-dark" onclick="closePopup()" data-dismiss="modal" data-bs-theme="dark" aria-label="Close">
+            <img width="20" height="20" src="images/closewhite.png" alt="delete-sign"/>
+          </a>
+        </div>
+        <div class="modal-body bg-dark">
+          <div class="popup-content" id="popup-content">
+            <!-- Results will be displayed here -->
+          </div>
+        </div>
+        <div class="modal-footer bg-dark">
+          <button id="printButton" class="btn btn-secondary" onclick="printResults()">Print Results</button>
+          <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="window.location.reload()">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Moment.js for time -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script>
+        // Update current time every second
+        function updateTime() {
+            document.getElementById(' current-time').innerText = moment().format('MMMM DD YYYY, hh:mm:ss');
+        }
+        updateTime(); // Update immediately setInterval(updateTime, 1000); // Update every second
+    </script>
+
+
+
                         <script>
                             // Get references to the select and span elements
                             var timingSelect = document.getElementById("timingSelect");
@@ -2460,9 +2517,9 @@ function toggleSpellCheck() {
        <script>
         //colorr and enable diasaable ------------------------------------------------------------------------------------------------------------
         document.addEventListener('DOMContentLoaded', () => {
-    let spellCheckEnabled = true;
+        let spellCheckEnabled = false;
 
-    function spellCheck() {
+         function spellCheck() {
         let textEntered = testArea.value;
         displayMarathiText(textEntered);
 
